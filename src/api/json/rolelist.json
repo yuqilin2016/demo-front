@@ -1,0 +1,32 @@
+{
+    "tableData": [
+        {
+          "roleck": "CK1",
+          "roleName": "角色1",
+          "status": "启用",
+          "create": "王张",
+          "createTime": "2018-8-5",
+          "updatePeople": "李四",
+          "updateTime": "2018-9-5"
+        },
+        {
+        "roleck": "CK2",
+        "roleName": "角色2",
+        "status": "启用",
+        "create": "王张",
+        "createTime": "2018-8-5",
+        "updatePeople": "李四",
+        "updateTime": "2018-9-5"
+        },
+        {
+        "roleck": "CK3",
+        "roleName": "角色3",
+        "status": "启用",
+        "create": "王张",
+        "createTime": "2018-8-5",
+        "updatePeople": "李四",
+        "updateTime": "2018-9-5"
+        }
+        
+      ]
+}

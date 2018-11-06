@@ -1,0 +1,64 @@
+{
+    "tableData":[
+        {
+        "loginName": "id0001",
+        "name": "王大虎",
+        "phone": "15645896532",
+        "type": "项目经理",
+        "role": "role1",
+        "status": "启用",
+        "create": "王张",
+        "createTime": "2018-8-5",
+        "updatePeople": "李四",
+        "updateTime": "2018-9-5"
+      },
+      {
+        "loginName": "id0002",
+        "name": "王小虎",
+        "phone": "15645896532",
+        "type": "项目经理",
+        "role": "role1",
+        "status": "启用",
+        "create": "王张",
+        "createTime": "2018-8-5",
+        "updatePeople": "李四",
+        "updateTime": "2018-9-5"
+      },
+      {
+        "loginName": "id0003",
+        "name": "王三虎",
+        "phone": "15645896532",
+        "type": "项目经理",
+        "role": "role1",
+        "status": "启用",
+        "create": "王张",
+        "createTime": "2018-8-5",
+        "updatePeople": "李四",
+        "updateTime": "2018-9-5"
+      },
+      {
+        "loginName": "id0004",
+        "name": "王四虎",
+        "phone": "15645896532",
+        "type": "项目经理",
+        "role": "role1",
+        "status": "启用",
+        "create": "王张",
+        "createTime": "2018-8-5",
+        "updatePeople": "李四",
+        "updateTime": "2018-9-5"
+      },
+      {
+        "loginName": "id0005",
+        "name": "王五虎",
+        "phone": "15645896532",
+        "type": "项目经理",
+        "role": "role1",
+        "status": "启用",
+        "create": "王张",
+        "createTime": "2018-8-5",
+        "updatePeople": "李四",
+        "updateTime": "2018-9-5"
+      }       
+    ]
+}
