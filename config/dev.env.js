@@ -1,6 +1,6 @@
 module.exports = {
   NODE_ENV: '"development"',
   ENV_CONFIG: '"dev"',
-  BASE_API: '"http://127.0.0.1:9999"'
+  BASE_API: '"http://192.168.1.18:9999"'
   // BASE_API: '"http://127.0.0.1:9999"'
 }
