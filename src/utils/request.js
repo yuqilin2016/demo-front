@@ -5,7 +5,7 @@ import { Message } from 'element-ui'
 const axios = Axios.create({
   baseURL: process.env.BASE_API, // api 的 base_url
   // baseURL: '192.168.1.55:9999/',
-  timeout: 5000,
+  timeout: 15000,
   transformRequest: [
     data => {
       return data

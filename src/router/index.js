@@ -81,12 +81,13 @@ export const constantRouterMap = [
         path: 'order-list',
         component: () => import('../views/testProject/goodsOrder'),
         name: 'goodsOrder',
-        meta: { title: '查询订单', icon: 'search', noCache: true },
+        meta: { title: '采购订单', icon: 'order', noCache: true },
       },
       {
         path: 'new-order',
         component: () => import('../views/testProject/newOrder'),
         name: 'newOrder',
+        hidden: true,
         meta: { title: '新建订单', icon: 'order', noCache: true },
       }
       
