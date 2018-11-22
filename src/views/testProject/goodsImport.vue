@@ -3,7 +3,6 @@
 
     <el-form style="width: 700px">
       <el-form-item label="商品导入文件：">
-
         <el-upload
         	ref="upload"
           :auto-upload="false"
@@ -15,15 +14,16 @@
           style="display: inline;"
 					:on-error="handleError"
 					:headers="header"
+          accept="text/plain"
 					:limit="3"
-          action="http://192.168.0.102:9999/web/v1/goods/importGoods">
+          action="http://192.168.0.135:3000/web/v1/goods/importGoods">
           <el-input :value="url" style="width: 300px"/>
           <el-button icon="el-icon-upload2">添加文件</el-button>
           <div slot="tip">只能上传txt文件，以英文逗号分隔</div>
         </el-upload>
       </el-form-item>
       <el-button id="import" type="primary" :disabled="isDisabled" @click="submitUpload" :loading="isImporting">导入</el-button>
-      <span class="error" v-show="isDisabled" style="color: red">只能上传txt和xls文件!</span>
+      <span class="error" v-show="isDisabled" style="color: red">只能上传txt文件!</span>
       <div class="errorMsg" style="margin-top: 10px">
       {{errorMsg}}
     	</div>
@@ -121,11 +121,16 @@ export default {
         return this.$confirm(`确定移除 ${ file.name }？`);
     },
     submitUpload() {
-        this.$refs.upload.submit();
-        this.isImporting = true;
+        if (this.url === '') {
+          this.$message('请先上传文件！')
+        } else {
+          this.$refs.upload.submit();
+          this.isImporting = true;
+        }  
     },
     handleResponse(response, file, fileList) {
     	// console.log(response);
+      this.$refs.upload.clearFiles();
     	this.errorMsg = response.errorMsg;
     	let msg = document.querySelector('.errorMsg');
     	if(this.errorMsg.indexOf('错误') !== -1) {

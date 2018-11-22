@@ -37,39 +37,40 @@
       <el-button icon="el-icon-plus" @click="toNewOrder"></el-button>
       <!-- <div>{{timeRange}}</div> -->
     </el-form>
-    <el-table
-    :data="tableData"
-    :default-sort="{prop: 'commitTime', order: 'descending'}" 
-    stripe highlight-current-row
-    style="margin-top: 10px">
-      <el-table-column sortable prop="number" label="采购单号" width="180">
-      </el-table-column>
-      <el-table-column align="center" label="货主信息">
-      	<el-table-column prop="ownerName" label="货主名称" width="100">
-      	</el-table-column>
-      	<el-table-column sortable prop="ownerCode" label="货主编码" width="120">
-      	</el-table-column>
-      </el-table-column>
-      <el-table-column  align="center" label="供应商信息">
-      	<el-table-column prop="supplierName" label="供应商名称" width="100">
-      		
-      	</el-table-column>
-      	<el-table-column sortable prop="supplierCode" label="供应商编码" width="120">
-      		
-      	</el-table-column>
-      </el-table-column>
-      <el-table-column  prop="count" label="订购商品种类数量" width="80"/>
-      <el-table-column  align="center" sortable prop="sum" label="商品总数量" width="140"/>
-      <el-table-column  sortable prop="commitTime" label="提交时间" width="180"/>
-      <el-table-column  sortable prop="arriveDay" label="预计到货日期" width="180"/>
-    </el-table>
+    <div style="width: 1100px">
+      <el-table
+      :data="tableData"
+      :default-sort="{prop: 'commitTime', order: 'descending'}" 
+      stripe highlight-current-row
+      style="margin-top: 10px">
+        <el-table-column sortable prop="number" label="采购单号" width="170">
+        </el-table-column>
+        <el-table-column align="center" label="货主信息">
+          <el-table-column prop="ownerName" label="货主名称" width="100">
+          </el-table-column>
+          <el-table-column sortable prop="ownerCode" label="货主编码" width="110">
+          </el-table-column>
+        </el-table-column>
+        <el-table-column  align="center" label="供应商信息">
+          <el-table-column prop="supplierName" label="供应商名称" width="100">
+          </el-table-column>
+          <el-table-column sortable prop="supplierCode" label="供应商编码" width="120">
+          </el-table-column>
+        </el-table-column>
+        <el-table-column  prop="count" label="订购商品种类数量" width="80"/>
+        <el-table-column  align="center" sortable prop="sum" label="商品总数量" width="120"/>
+        <el-table-column  sortable prop="commitTime" label="提交时间" width="160"/>
+        <el-table-column  sortable align="center" prop="arriveDay" label="预计到货日期"/>
+      </el-table>
+    </div>
     <el-pagination
-      :total="total"
+      :total="total" background
       :page-sizes="[10, 20, 50, 100]"
       :page-size="ps"
       layout="total, sizes, prev, pager, next, jumper"
       @size-change="handleSizeChange"
-      @current-change="current_change"/>
+      @current-change="current_change"
+      style="width: 1100px;margin-top: 10px;text-align: center;" />
     <back-to-top/>
   </div>
 </template>

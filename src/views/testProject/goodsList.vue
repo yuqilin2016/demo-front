@@ -16,19 +16,23 @@
       @click="submitForm('searchForm')">查询
       </el-button>
     </el-form>
-    <el-table :data="tableData" :default-sort="{prop: 'importDt', order: 'descending'}" stripe style="width: 100%">
+    <div style="width: 650px">
+      <el-table :data="tableData" :default-sort="{prop: 'importDt', order: 'descending'}" stripe style="width: 100%">
       <el-table-column sortable prop="number" label="商品编码" width="180"/>
       <el-table-column prop="name" label="商品名称" width="180"/>
       <el-table-column sortable prop="price" label="价格" width="100"/>
-      <el-table-column sortable prop="importDt" label="导入时间" width="180"/>
+      <el-table-column sortable prop="importDt" label="导入时间" />
     </el-table>
+    </div>
+    
     <el-pagination
       :total="total" background
       :page-sizes="[10, 20, 50, 100]"
       :page-size="ps"
       layout="total, sizes, prev, pager, next, jumper"
       @size-change="handleSizeChange"
-      @current-change="current_change"/>
+      @current-change="current_change"
+      style="width: 650px;margin-top: 10px;text-align: center" />
     <back-to-top/>
   </div>
 </template>
@@ -37,8 +41,6 @@
 // import Mock from 'mockjs'
 import BackToTop from '@/components/BackToTop'
 // import qs from 'qs'
-
-
 export default {
   components: {
     BackToTop
@@ -61,7 +63,7 @@ export default {
       	},
       	pn: '',
       	ps: ''
-      }
+      },
     }
   },
   created: function(){
