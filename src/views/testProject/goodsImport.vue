@@ -131,7 +131,8 @@ export default {
     handleResponse(response, file, fileList) {
     	// console.log(response);
       this.$refs.upload.clearFiles();
-    	this.errorMsg = response.errorMsg;
+      console.log(response)
+    	this.errorMsg = response.content;
     	let msg = document.querySelector('.errorMsg');
     	if(this.errorMsg.indexOf('错误') !== -1) {
     		msg.style.color = 'red';

@@ -17,7 +17,10 @@
       </el-button>
     </el-form>
     <div style="width: 650px">
-      <el-table :data="tableData" :default-sort="{prop: 'importDt', order: 'descending'}" stripe style="width: 100%">
+      <el-table v-loading="loading" element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.3)"
+     :data="tableData" :default-sort="{prop: 'importDt', order: 'descending'}" stripe style="width: 100%">
       <el-table-column sortable prop="number" label="商品编码" width="180"/>
       <el-table-column prop="name" label="商品名称" width="180"/>
       <el-table-column sortable prop="price" label="价格" width="100"/>
@@ -48,6 +51,7 @@ export default {
   data() {
     return {
       tableData: [],
+      loading:true,
       total: 0,
       ps: 10,
       // currentPage: 1,
@@ -78,6 +82,7 @@ export default {
   	.then((response) => {
   		// console.log(response.datas);
   		this.tableData = response.datas;
+      this.loading = false
   		// console.log(this.tableData);
   		this.total = response.tc;
   		if (this.total > 0) {
@@ -142,6 +147,7 @@ export default {
   		}
   	},
   	current_change: function(currentPage) {
+      this.loading = true
   		this.pn = currentPage;
   		var params = {
   			ps: this.ps,
@@ -150,6 +156,7 @@ export default {
   		this.$http.post('/web/v1/goods/page', params)
   		.then((res) => {
   			this.tableData = res.datas;
+        this.loading = false
   			this.tableData.forEach((value, index, array) => {
   				var parsedTime = this.parseTime(value.importDt, 'full');
   				this.$set(value, 'importDt', parsedTime);
@@ -160,6 +167,7 @@ export default {
   		});
   	},
   	handleSizeChange: function(val) {
+      this.loading = true
   		this.ps = parseInt(val);
   		this.pn = 1;
   		this.params.conditions.numberLike = this.searchForm.number;
@@ -169,6 +177,7 @@ export default {
   		this.$http.post('/web/v1/goods/page',this.params)
   		.then((response) => {
   			this.tableData = response.datas;
+        this.loading = false
   			// console.log(this.tableData);
   			this.total = response.tc;
   			this.tableData.forEach((value, index, array) => {
@@ -181,7 +190,7 @@ export default {
   		});
   	},
   	submitForm: function(){
-
+      this.loading = true
   		this.params.conditions.numberLike = this.searchForm.number;
   		this.params.conditions.nameLike = this.searchForm.name;
   		this.params.pn = 1;
@@ -192,6 +201,7 @@ export default {
   			// console.log(this.params);
   			// console.log(response.datas);
   			this.tableData = response.datas;
+        this.loading = false
   			this.total = this.tableData.length;
   			if (this.total > 0) {
   				// for(var i=0; i<this.total; i++) {

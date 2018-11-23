@@ -40,6 +40,9 @@
     <div style="width: 1100px">
       <el-table
       :data="tableData"
+      v-loading="loading" element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.3)"
       :default-sort="{prop: 'commitTime', order: 'descending'}" 
       stripe highlight-current-row
       style="margin-top: 10px">
@@ -85,6 +88,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       pickerOptions1: {
         shortcuts: [{
           text: '最近一周',
@@ -166,6 +170,7 @@ export default {
   		})
   		.then((res) => {
   			// console.log(res);
+        this.loading = false
   			this.tableData = res.datas;
   			this.total = res.tc;
 
@@ -240,6 +245,7 @@ export default {
   		}
   	},
   	current_change: function(currentPage) {
+      this.loading = true
   		this.pn = currentPage;
   		var params = {
   			ps: this.ps,
@@ -247,6 +253,7 @@ export default {
   		};
   		this.$http.post('/web/v1/order/page', params)
   		.then((response) => {
+        this.loading = false
   			this.tableData = response.datas;
   			this.tableData.forEach((value, index, array) => {
   				this.tableData = response.datas;
@@ -268,6 +275,7 @@ export default {
   		});
   	},
   	handleSizeChange: function(val) {
+      this.loading = true
   		this.ps = parseInt(val);
   		this.pn = 1;
 
@@ -283,6 +291,7 @@ export default {
 
   		this.$http.post('/web/v1/order/page',this.params)
   		.then((response) => {
+        this.loading = false
   			this.tableData = response.datas;
   			console.log(this.tableData);
   			this.total = response.tc;
@@ -304,6 +313,7 @@ export default {
   		this.$router.push('new-order');
   	},
   	search: function () {
+      this.loading = true
   		// this.searchOrder.startTime = this.timeRange[0];
   		// this.searchOrder.endTime = this.timeRange[1];
   		this.params.conditions.numberLike = this.searchOrder.number;
@@ -321,6 +331,7 @@ export default {
   		this.$http.post('/web/v1/order/page', 
   		this.params)
   		.then((res) => {
+        this.loading = false
   			// console.log(res);
   			this.tableData = res.datas;
   			this.total = res.tc;

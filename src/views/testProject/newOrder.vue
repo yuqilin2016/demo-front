@@ -6,7 +6,7 @@
       <el-row :gutter="10">
         <el-col :span="7">
           <el-form-item label="订单号：">
-            <el-input v-model="id" readonly style="width:180px"/>
+            <el-input v-loading="loading1" v-model="id" :disabled="true" readonly style="width:180px"/>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -57,7 +57,7 @@
       <el-form label-width="120px" 
       :model="saveGoods" ref="saveGoods" :rules="rules2">
         <el-form-item label="商品：">
-          <el-select v-model="saveGoods.goodsSelect" value-key="number"
+          <el-select v-loading="loading2" v-model="saveGoods.goodsSelect" value-key="number"
           placeholder="请选择商品" style="width: 180px">
             <el-option  
             v-for="(item,index) in goodsList"
@@ -78,12 +78,13 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-
-    <el-table :data="tableData" v-show="tableData.length" stripe style="width: 100%">
+    <div style="width: 540px">
+      <el-table :data="tableData" v-show="tableData.length" stripe style="width: 100%">
       <el-table-column prop="goodsNumber" label="商品编码" width="180"/>
       <el-table-column prop="goodsName" label="商品名称" width="180"/>
       <el-table-column prop="purchaseQuantity" label="采购数量" width="180"/>
     </el-table>
+    </div>
   </div>
 </template>
 
@@ -91,6 +92,8 @@
 export default {
   data() {
     return {
+      loading1: true,
+      loading2: true,
       id: 0,
       date: '',
       dialogVisible: false,
@@ -134,16 +137,16 @@ export default {
             } else {
               callback();
             }
-          }, trigger: 'blur'
+          }, trigger: ['blur','change']
           },
-          {validator: (rule, value, callback) => {
-            if (/^[A-Za-z0-9]+$/.test(value) == false) {
-              callback(new Error("货主编码为字母+数字"));
-            } else {
-              callback();
-            }
-          }, trigger: 'change'
-          }
+          // {validator: (rule, value, callback) => {
+          //   if (/^[A-Za-z0-9]+$/.test(value) == false) {
+          //     callback(new Error("货主编码为字母+数字"));
+          //   } else {
+          //     callback();
+          //   }
+          // }, trigger: 'change'
+          // }
         ],
         ownerName: [
         	{ required: true, message: '请输入货主名称', trigger: 'change' },
@@ -156,16 +159,16 @@ export default {
             } else {
               callback();
             }
-            }, trigger: 'blur'
+            }, trigger: ['blur','change']
           },
-          {validator: (rule, value, callback) => {
-            if (/^[A-Za-z0-9]+$/.test(value) == false) {
-              callback(new Error("货主编码为字母+数字"));
-            } else {
-              callback();
-            }
-            }, trigger: 'change'
-          }
+          // {validator: (rule, value, callback) => {
+          //   if (/^[A-Za-z0-9]+$/.test(value) == false) {
+          //     callback(new Error("货主编码为字母+数字"));
+          //   } else {
+          //     callback();
+          //   }
+          //   }, trigger: 'change'
+          // }
         ],
         supplierName: [
         	{ required: true, message: '请输入供应商主名称', trigger: 'change' },
@@ -183,24 +186,25 @@ export default {
               } else {
               callback();
               }
-            }, trigger: 'blur' 
+            }, trigger: ['blur','change']
           },
-          {  validator: (rule, value, callback) => {
-              if (/^[1-9]\d*$/.test(value) == false) {
-              callback(new Error("商品数量只能为正整数"));
-              } else {
-              callback();
-              }
-            }, trigger: 'change' 
-          }
+          // {  validator: (rule, value, callback) => {
+          //     if (/^[1-9]\d*$/.test(value) == false) {
+          //     callback(new Error("商品数量只能为正整数"));
+          //     } else {
+          //     callback();
+          //     }
+          //   }, trigger: 'change' 
+          // }
       	]
       }
     }
   },
   created: function(){
-  	
+  
     this.$http.post('/web/v1/order/getNumner')
     .then((res) => {
+      this.loading1 = false
     	// console.log(res);
     	this.id = res;
     })
@@ -210,8 +214,10 @@ export default {
   },
   methods: {
     chooseGoods () {
+      this.loading2 = true
       this.$http.post('/web/v1/orderDerail/showGoods')
       .then((res) => {
+        this.loading2 = false
         this.goodsList = res.datas;
       })
       .catch((err) => {

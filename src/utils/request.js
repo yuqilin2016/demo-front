@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import qs from 'qs'
 import { Message } from 'element-ui'
-import { Loading } from 'element-ui'
+// import { Loading } from 'element-ui'
 
 const axios = Axios.create({
   baseURL: process.env.BASE_API, // api 的 base_url
@@ -19,11 +19,11 @@ const axios = Axios.create({
 
 // request interceptor
 axios.interceptors.request.use(config => {
-  Loading.service({
-    text: '拼命加载中...',
-    spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.7)'
-  })
+  // Loading.service({
+  //   text: '拼命加载中...',
+  //   spinner: 'el-icon-loading',
+  //   background: 'rgba(0, 0, 0, 0.7)'
+  // })
   //   Vue.nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
   //   loadingInstance.close();
   // });
@@ -55,8 +55,8 @@ axios.interceptors.response.use(res => {
   //   Vue.nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
   //   loadingInstance.close();
   // });
-  const loadingInstance = Loading.service({})
-  loadingInstance.close()
+  // const loadingInstance = Loading.service({})
+  // loadingInstance.close()
 
   const data = res.data
   if (!data.errorCode) {
