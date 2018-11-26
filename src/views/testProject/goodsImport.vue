@@ -1,7 +1,7 @@
 <template>
   <div class="test">
 
-    <el-form style="width: 700px">
+    <el-form style="width: 50%; margin-left: 25%;margin-top: 20px">
       <el-form-item label="商品导入文件：">
         <el-upload
         	ref="upload"
@@ -132,7 +132,7 @@ export default {
     	// console.log(response);
       this.$refs.upload.clearFiles();
       console.log(response)
-    	this.errorMsg = response.content;
+    	this.errorMsg = response.errorMsg;
     	let msg = document.querySelector('.errorMsg');
     	if(this.errorMsg.indexOf('错误') !== -1) {
     		msg.style.color = 'red';

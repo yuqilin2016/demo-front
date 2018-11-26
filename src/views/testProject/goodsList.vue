@@ -1,32 +1,35 @@
 <template>
   <div class="test">
 
-    <el-form :model="searchForm" ref="searchForm">
-      <el-input 
-      v-model="searchForm.number" 
-      placeholder="输入商品编码" 
-      style="width: 230px"
-      clearable />
-      <el-input 
-      v-model="searchForm.name" 
-      placeholder="输入商品名称" 
-      style="width: 230px;margin-left: 20px"
-      clearable />
-      <el-button type="primary" style="margin-left: 10px" 
-      @click="submitForm('searchForm')">查询
-      </el-button>
+    <el-form :model="searchForm" ref="searchForm" style="margin-top: 10px">
+      <el-row :gutter="10" type="flex" justify="center">
+        <el-col :span="5">
+          <el-input 
+          v-model="searchForm.number" 
+          placeholder="输入商品编码" 
+          clearable />
+        </el-col>
+        <el-col :span="5">
+          <el-input 
+          v-model="searchForm.name" 
+          placeholder="输入商品名称" 
+          clearable />
+        </el-col>
+        <el-col :span="2">
+          <el-button type="primary" 
+          @click="submitForm('searchForm')">查询
+          </el-button>
+        </el-col>
+      </el-row>
     </el-form>
-    <div style="width: 650px">
-      <el-table v-loading="loading" element-loading-text="拼命加载中"
-      element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.3)"
-     :data="tableData" :default-sort="{prop: 'importDt', order: 'descending'}" stripe style="width: 100%">
-      <el-table-column sortable prop="number" label="商品编码" width="180"/>
-      <el-table-column prop="name" label="商品名称" width="180"/>
-      <el-table-column sortable prop="price" label="价格" width="100"/>
-      <el-table-column sortable prop="importDt" label="导入时间" />
+    <div v-loading="loading">
+      <el-table element-loading-text="拼命加载中"
+     :data="tableData" :default-sort="{prop: 'importDt', order: 'descending'}" highlight-current-row style="width: 70%;margin-left: 15%;margin-top: 10px">
+      <el-table-column sortable prop="number" label="商品编码" min-width="180"/>
+      <el-table-column sortable prop="name" label="商品名称" min-width="180"/>
+      <el-table-column sortable prop="price" label="价格" min-width="120"/>
+      <el-table-column sortable prop="importDt" label="导入时间" min-width="180"/>
     </el-table>
-    </div>
     
     <el-pagination
       :total="total" background
@@ -35,8 +38,11 @@
       layout="total, sizes, prev, pager, next, jumper"
       @size-change="handleSizeChange"
       @current-change="current_change"
-      style="width: 650px;margin-top: 10px;text-align: center" />
+      style="margin-top: 10px;text-align: center" >
+    </el-pagination>
+    </div>
     <back-to-top/>
+
   </div>
 </template>
 

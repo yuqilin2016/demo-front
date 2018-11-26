@@ -1,79 +1,89 @@
 <template>
   <div class="test">
-
     <el-form :model="searchOrder" ref="searchOrder">
-      <el-input 
-      v-model="searchOrder.number"
-      placeholder="输入采购单号" 
-      style="width: 200px"
-      clearable />
-      <el-input 
-      v-model="searchOrder.ownerCode"
-      placeholder="输入货主编码" 
-      style="width: 150px;margin-left: 10px"
-      clearable />
-      <el-input 
-      v-model="searchOrder.supplierCode"
-      placeholder="输入供应商编码" 
-      style="width: 150px;margin-left: 10px"
-      clearable />
-      <el-date-picker
-        v-model="timeRange"
-        value-format="yyyy-MM-dd'T'HH:mm:ss.SSS"
-        :picker-options="pickerOptions1"
-        type="datetimerange"
-        range-separator="至"
-        start-placeholder="提交时间开始"
-        end-placeholder="提交时间结束"
-        style="margin-left: 10px">
-      </el-date-picker>
-      
-      <el-button 
-      type="primary" 
-      style="margin-left: 10px" 
-      @click="search">
-      	查询
-    	</el-button>
-      <el-button icon="el-icon-plus" @click="toNewOrder"></el-button>
-      <!-- <div>{{timeRange}}</div> -->
+      <el-row :gutter="10">
+        <el-col :span="5">
+          <el-input 
+          v-model="searchOrder.number"
+          placeholder="输入采购单号" 
+          clearable />
+        </el-col>
+        <el-col :span="4">
+          <el-input 
+          v-model="searchOrder.ownerCode"
+          placeholder="输入货主编码" 
+          clearable />
+        </el-col>
+        <el-col :span="4">
+          <el-input 
+          v-model="searchOrder.supplierCode"
+          placeholder="输入供应商编码" 
+          clearable />
+        </el-col>
+        <el-col :span="7">
+        <el-date-picker
+          v-model="timeRange"
+          value-format="yyyy-MM-dd'T'HH:mm:ss.SSS"
+          :picker-options="pickerOptions1"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="提交时间开始"
+          end-placeholder="提交时间结束"
+          style="width: 100%">
+        </el-date-picker>
+        </el-col>
+        <el-col :span="4">
+        <el-button 
+        type="primary" 
+        style="width: 30%;margin-left: 10px" 
+        @click="search">
+          查询
+        </el-button>
+        <el-button icon="el-icon-plus" @click="toNewOrder" style="width: 30%">
+        </el-button>
+      </el-col>
+      </el-row>
     </el-form>
-    <div style="width: 1100px">
+    <div v-loading="loading">
       <el-table
       :data="tableData"
-      v-loading="loading" element-loading-text="拼命加载中"
-      element-loading-spinner="el-icon-loading"
-      element-loading-background="rgba(0, 0, 0, 0.3)"
+      element-loading-text="拼命加载中"
       :default-sort="{prop: 'commitTime', order: 'descending'}" 
-      stripe highlight-current-row
+      highlight-current-row
       style="margin-top: 10px">
-        <el-table-column sortable prop="number" label="采购单号" width="170">
+        <el-table-column sortable prop="number" label="采购单号" min-width="170">
         </el-table-column>
         <el-table-column align="center" label="货主信息">
-          <el-table-column prop="ownerName" label="货主名称" width="100">
+          <el-table-column prop="ownerName" label="货主名称" min-width="100">
           </el-table-column>
-          <el-table-column sortable prop="ownerCode" label="货主编码" width="110">
+          <el-table-column sortable prop="ownerCode" label="货主编码" min-width="110">
           </el-table-column>
         </el-table-column>
         <el-table-column  align="center" label="供应商信息">
-          <el-table-column prop="supplierName" label="供应商名称" width="100">
+          <el-table-column prop="supplierName" label="供应商名称" min-width="100">
           </el-table-column>
-          <el-table-column sortable prop="supplierCode" label="供应商编码" width="120">
+          <el-table-column sortable prop="supplierCode" label="供应商编码" min-width="120">
           </el-table-column>
         </el-table-column>
-        <el-table-column  prop="count" label="订购商品种类数量" width="80"/>
-        <el-table-column  align="center" sortable prop="sum" label="商品总数量" width="120"/>
-        <el-table-column  sortable prop="commitTime" label="提交时间" width="160"/>
-        <el-table-column  sortable align="center" prop="arriveDay" label="预计到货日期"/>
+        <el-table-column  prop="count" label="商品种类" min-width="80">
+        </el-table-column>
+        <el-table-column  align="center" sortable prop="sum" label="商品总数量" min-width="120">
+        </el-table-column>
+        <el-table-column  sortable prop="commitTime" label="提交时间" min-width="160">
+        </el-table-column>
+        <el-table-column  sortable align="center" prop="arriveDay" label="预计到货日期" min-width="140">
+        </el-table-column>
       </el-table>
+      <el-pagination
+        :total="total" background
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="ps"
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="current_change"
+        style="width: 1100px;margin-top: 10px;text-align: center;">
+      </el-pagination>
     </div>
-    <el-pagination
-      :total="total" background
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="ps"
-      layout="total, sizes, prev, pager, next, jumper"
-      @size-change="handleSizeChange"
-      @current-change="current_change"
-      style="width: 1100px;margin-top: 10px;text-align: center;" />
     <back-to-top/>
   </div>
 </template>
